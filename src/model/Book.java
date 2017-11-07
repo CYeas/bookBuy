@@ -1,6 +1,7 @@
 package model;
 
 import util.DatabaseUtil;
+import util.Message;
 import util.ModelStatus;
 
 import java.util.ArrayList;
@@ -27,25 +28,33 @@ public class Book {
 
 
     protected static ArrayList<Book> listAllBook() {
-
+        return DatabaseUtil.getBook(ModelStatus.allBookCode);
     }
 
     protected static Book getBook(int id) {
-
+        return DatabaseUtil.getBook(id).get(0);
     }
 
-    protected int createBook(int id) {
-
+    protected int createBook() {
+        String sql = "INSERT INTO Book(Name,Author,Price,Available,Storage) " +
+                "VALUES('" + this.name + "','" + this.author + "'," + this.price + "," + this.available +"," + this.storage+ ");";
+        return DatabaseUtil.runUpdateSql(sql);
     }
 
-    protected int destoryBook(int id) {
-
+    protected int deleteBook() {
+        String sql = "DELETE Book WHERE rowid=" + this.bookNumber + ";";
+        return DatabaseUtil.runUpdateSql(sql);
     }
 
-    protected int buyBook(int sum) {
+    protected int buyBook(int sum, int UserId) {
+        int status = 0;
         if(sum <= storage) {
             this.storage = storage - sum;
         }
+        BookRecord bookRecord = new BookRecord(UserId, this.bookNumber, sum);
+        status += bookRecord.createRecord();
+        status += this.save();
+        return status == Message.Success ? Message.Success : Message.BuyError;
     }
 
     protected int setNotAvailable() {
@@ -54,13 +63,13 @@ public class Book {
     }
 
     protected int save() {
-        String sql = "UPDATE Book" +
-                "SET Name = " + this.name + "," +
-                "Author = " + this.author + "," +
+        String sql = "UPDATE Book " +
+                "SET Name = '" + this.name + "'," +
+                "Author = '" + this.author + "'," +
                 "Price = " + this.price + "," +
                 "Available = " + this.available + "," +
                 "Storage = " + this.storage +
-                "WHERE id = " + this.bookNumber;
+                " WHERE rowid = " + this.bookNumber;
         return DatabaseUtil.runUpdateSql(sql);
     }
 

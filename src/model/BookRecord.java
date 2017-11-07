@@ -10,7 +10,27 @@ public class BookRecord {
     private int bookId;
     private int sum;
 
-    public int save() {
-        DatabaseUtil
+    public BookRecord(int userId, int bookId, int sum) {
+        this.userId = userId;
+        this.bookId = bookId;
+        this.sum = sum;
+    }
+
+    protected int createRecord() {
+        String sql = "INSERT INTO Record(UserId,BookId,Sum) " +
+                "VALUES(" + this.userId + "," + this.bookId + "," + this.sum + ");";
+        return DatabaseUtil.runUpdateSql(sql);
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public int getSum() {
+        return sum;
     }
 }

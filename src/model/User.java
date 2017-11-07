@@ -2,6 +2,7 @@ package model;
 
 import util.DatabaseUtil;
 import util.Message;
+import util.ModelStatus;
 
 import java.util.ArrayList;
 
@@ -21,15 +22,8 @@ public class User {
         this.userType = userType;
     }
 
-
-    protected static User login(String name, String password){
-        return DatabaseUtil.login(name, password);
-    }
-
-    protected void logOut() {}
-
     public int isUserAvailabe() {
-        if(this.id != -1) {
+        if(this.id != ModelStatus.NotAvailable) {
             return Message.Success;
         } else {
             return Message.UserIsLogOut;
@@ -37,12 +31,36 @@ public class User {
     }
 
     public boolean isUserType(int type){
-       if(this.userType == type) {
-           return true;
-       } else {
-           return false;
-       }
+        if(this.userType == type) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    public ArrayList<Book> getAllBook() {
+        return Book.listAllBook();
+    }
+
+    public Book getBook(int id) {
+        return Book.getBook(id);
+    }
+
+    public int signUp() {
+        String sql = "INSERT INTO User(Username,Password,UserType) " +
+                "VALUES('" + this.name + "','" + this.password + "'," + this.userType + ");";
+        return DatabaseUtil.runUpdateSql(sql);
+    }
+
+
+    public static User login(String name, String password){
+        return DatabaseUtil.login(name, password);
+    }
+
+    protected void logOut() {
+        this.id = ModelStatus.NotAvailable;
+    }
+
 
     public int getId() {
         return id;

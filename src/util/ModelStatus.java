@@ -6,4 +6,7 @@ package util;
 public class ModelStatus {
     public static final int NotAvailable = -1;
     public static final Object ObjectNotAvailable = null;
+
+    public static final int allBookCode = -2;
+
 }

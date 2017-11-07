@@ -11,5 +11,5 @@ public class Message {
     public static final int DatabaseInitError = 4;
     public static final int UserIsLogOut = 5;
     public static final int LoginError = 6;
-
+    public static final int BuyError = 7;
 }
