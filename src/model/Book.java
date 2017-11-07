@@ -1,5 +1,8 @@
 package model;
 
+import util.DatabaseUtil;
+import util.ModelStatus;
+
 import java.util.ArrayList;
 
 /**
@@ -22,23 +25,47 @@ public class Book {
         this.available = available;
     }
 
-    public int buyBook(int sum) {
+
+    protected static ArrayList<Book> listAllBook() {
+
+    }
+
+    protected static Book getBook(int id) {
+
+    }
+
+    protected int createBook(int id) {
+
+    }
+
+    protected int destoryBook(int id) {
+
+    }
+
+    protected int buyBook(int sum) {
         if(sum <= storage) {
             this.storage = storage - sum;
         }
     }
 
-    public static ArrayList<Book> listAllBook() {
-
-    }
-
-    public int setNotAvailable() {
+    protected int setNotAvailable() {
         this.available = 0;
-        this.save();
+        return this.save();
     }
 
     protected int save() {
+        String sql = "UPDATE Book" +
+                "SET Name = " + this.name + "," +
+                "Author = " + this.author + "," +
+                "Price = " + this.price + "," +
+                "Available = " + this.available + "," +
+                "Storage = " + this.storage +
+                "WHERE id = " + this.bookNumber;
+        return DatabaseUtil.runUpdateSql(sql);
+    }
 
+    private void destoryThis() {
+        this.bookNumber = ModelStatus.NotAvailable;
     }
 
     public int getBookNumber() {
