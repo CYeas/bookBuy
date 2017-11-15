@@ -72,10 +72,16 @@ public class DatabaseUtil {
                 if (password.equals(dbPassword)) {
                     switch (dbUserType) {
                         case UserType.Admin:
+                            System.out.println("Success: Admin");
                             return new Admin(id, dbName, dbPassword, dbUserType);
+
                         case UserType.Customer:
+                            System.out.println("Success: Customer");
                             return new Customer(id, dbName, dbPassword, dbUserType);
                     }
+                }
+                else {
+                    System.out.println("Failed");
                 }
             }
         } catch (SQLException e) {
