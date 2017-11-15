@@ -1,7 +1,7 @@
 #购书系统
 
+###已经发现的问题
 
-###已经发现的问题：
 ####controller类的bug
 1. createbook方法中，step1和step2粘连
 2. 不能循环添加书籍
