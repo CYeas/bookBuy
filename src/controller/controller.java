@@ -84,7 +84,7 @@ public class controller {
     private void listAllBook() {
         System.out.println("The list of all books:");
         Line.seperateLine();
-        for (int i = customer.getAllBook().size(); i <= 0; i--) {
+        for (int i = customer.getAllBook().size(); i >= 0; i--) {
             System.out.println(customer.getAllBook().get(i).getBookNumber() +
                     customer.getAllBook().get(i).getName() +
                     customer.getAllBook().get(i).getAuthor() +
@@ -106,8 +106,8 @@ public class controller {
             System.out.println();
             opt = sc.nextInt();
             switch (opt) {
-               case 1: createBook(); break;
-              case 2: deleteBook(); break;
+                case 1: createBook(); break;
+                case 2: deleteBook(); break;
             }
             System.out.println("Anymore operation? Input 0 for quit, 1 for continue.");
             opt = sc.nextInt();
@@ -121,12 +121,13 @@ public class controller {
     private void puchaseBook() {
         int id;
         int num;
+        listAllBook();
         System.out.println("Step 1: Input the ID of the book.");
         id = sc.nextInt();
         System.out.println("Step 1: Input the number of the book.");
         num = sc.nextInt();
         customer.purchase(id, num);
-        System.out.println("Message.Success" + Message.Success);
+        System.out.println("Message.Success: " + Message.Success);
     }
 
     private void runCustomer() {

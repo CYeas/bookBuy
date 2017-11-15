@@ -14,13 +14,13 @@ public class controllerTest {
         //new Admin(1 ,"cyea2", "1234", 0).signUp();
         //new Customer(2 ,"customer", "1234", 1).signUp();
         controller Controller = new controller();
-        TestLogin();
-        TestAddBook();
-        TestDeleteBook();
-        TestGetList();
-        TestGetInfo();
-        TestGetSpecialList();
-        TestBuyBook();
+        //TestLogin();
+        //TestAddBook();
+        //TestDeleteBook();
+        //TestGetList();
+        //TestGetInfo();
+        //TestGetSpecialList();
+        //TestBuyBook();
         Controller.runUser();
 
 
@@ -82,10 +82,23 @@ public class controllerTest {
 
     private static void TestDeleteBook(){
         System.out.println("书籍删除测试，请务必保证书籍增加测试正常运行");
-    }
+        Admin admin = new Admin(200,"test","1234",0);
+        int flag;
+        System.out.print("(S)1: ");
+        flag = admin.deleteBook(1);
+        System.out.println(flag);
 
-    private static void TestGetList(){
-        System.out.println("书籍列表查看测试");
+        System.out.print("(F)2: ");
+        flag = admin.deleteBook(-1);
+        System.out.println(flag);
+
+        System.out.print("(F)3: ");
+        flag = admin.deleteBook(999999);
+        System.out.println(flag);
+
+        System.out.print("(F)4: ");
+        flag = admin.deleteBook(1);//重复删除
+        System.out.println(flag);
     }
 
     private static void TestGetInfo(){
