@@ -11,7 +11,7 @@ public class Customer extends User{
     }
 
     public int purchase(int bookNum, int sum) {
-        Book book = Book.getBook(bookNum);
+        Book book = Book.getBookById(bookNum);
         return book.buyBook(sum, this.id);
     }
 }

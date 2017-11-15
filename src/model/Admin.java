@@ -16,7 +16,7 @@ public class Admin extends User{
     }
 
     public int deleteBook(int bookNum) {
-        Book book = Book.getBook(bookNum);
+        Book book = Book.getBookById(bookNum);
         return book.deleteBook();
     }
 }

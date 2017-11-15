@@ -22,12 +22,19 @@ public class controller {
 
     // input user info and set the user.
     private void logIn() {
-        String name, pwd;
-        System.out.println("Step 1: Input your user name:");
-        name = sc.nextLine();
-        System.out.println("Step 2: Input your password:");
-        pwd = sc.nextLine();
-        user = User.login(name, pwd);
+        while(true) {
+            String name, pwd;
+            System.out.println("Step 1: Input your user name:");
+            name = sc.nextLine();
+            System.out.println("Step 2: Input your password:");
+            pwd = sc.nextLine();
+            user = User.login(name, pwd);
+            if (user != null) {
+                break;
+            } else {
+                System.out.println("login error,please try again");
+            }
+        }
     }
 
     private void createBook() {
@@ -126,8 +133,11 @@ public class controller {
         id = sc.nextInt();
         System.out.println("Step 1: Input the number of the book.");
         num = sc.nextInt();
-        customer.purchase(id, num);
-        System.out.println("Message.Success: " + Message.Success);
+        if(customer.purchase(id, num) == Message.Success) {
+            System.out.println("Message.Success: " + Message.Success);
+        } else {
+            System.out.println("purchase book error, plase check the number");
+        }
     }
 
     private void runCustomer() {

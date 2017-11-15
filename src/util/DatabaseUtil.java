@@ -28,10 +28,8 @@ public class DatabaseUtil {
         try {
             c = openDatabase();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
             return Message.DatabaseOpenError;
         } catch (SQLException e) {
-            e.printStackTrace();
             return Message.DatabaseOpenError;
         }
         try {
@@ -41,9 +39,8 @@ public class DatabaseUtil {
             c.close();
             return Message.Success;
         } catch (SQLException e) {
-            e.printStackTrace();
+            return Message.DatabaseUpdateError;
         }
-        return Message.DatabaseUpdateError;
     }
 
     public static User login(String name, String password) {
@@ -52,10 +49,8 @@ public class DatabaseUtil {
         try {
             c = openDatabase();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
             return null;
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
         try {
@@ -85,7 +80,6 @@ public class DatabaseUtil {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
         return null;
@@ -103,10 +97,8 @@ public class DatabaseUtil {
         try {
             c = openDatabase();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
             return null;
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
         try {
@@ -120,7 +112,6 @@ public class DatabaseUtil {
             c.close();
             return books;
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
     }

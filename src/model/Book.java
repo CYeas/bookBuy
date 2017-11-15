@@ -31,7 +31,7 @@ public class Book {
         return DatabaseUtil.getBook(ModelStatus.allBookCode);
     }
 
-    protected static Book getBook(int id) {
+    protected static Book getBookById(int id) {
         return DatabaseUtil.getBook(id).get(0);
     }
 
@@ -48,12 +48,14 @@ public class Book {
 
     protected int buyBook(int sum, int UserId) {
         int status = 0;
-        if(sum <= storage) {
+        if(sum <= storage && sum >= 0) {
             this.storage = storage - sum;
+            BookRecord bookRecord = new BookRecord(UserId, this.bookNumber, sum);
+            status += bookRecord.createRecord();
+            status += this.save();
+        } else {
+          status = Message.BuyError;
         }
-        BookRecord bookRecord = new BookRecord(UserId, this.bookNumber, sum);
-        status += bookRecord.createRecord();
-        status += this.save();
         return status == Message.Success ? Message.Success : Message.BuyError;
     }
 

@@ -1,7 +1,6 @@
 package model;
 
 import util.DatabaseUtil;
-import util.Message;
 import util.ModelStatus;
 
 import java.util.ArrayList;
@@ -22,28 +21,28 @@ public class User {
         this.userType = userType;
     }
 
-    public int isUserAvailabe() {
-        if(this.id != ModelStatus.NotAvailable) {
-            return Message.Success;
-        } else {
-            return Message.UserIsLogOut;
-        }
-    }
-
-    public boolean isUserType(int type){
-        if(this.userType == type) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    public int isUserAvailabe() {
+//        if(this.id != ModelStatus.NotAvailable) {
+//            return Message.Success;
+//        } else {
+//            return Message.UserIsLogOut;
+//        }
+//    }
+//
+//    public boolean isUserType(int type){
+//        if(this.userType == type) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     public ArrayList<Book> getAllBook() {
         return Book.listAllBook();
     }
 
     public Book getBook(int id) {
-        return Book.getBook(id);
+        return Book.getBookById(id);
     }
 
     public int signUp() {
