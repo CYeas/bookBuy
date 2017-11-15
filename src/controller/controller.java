@@ -25,9 +25,9 @@ public class controller {
         while(true) {
             String name, pwd;
             System.out.println("Step 1: Input your user name:");
-            name = sc.nextLine();
+            name = sc.next();
             System.out.println("Step 2: Input your password:");
-            pwd = sc.nextLine();
+            pwd = sc.next();
             user = User.login(name, pwd);
             if (user != null) {
                 break;
@@ -46,12 +46,12 @@ public class controller {
         while (true) {
             System.out.println("Create a new book.");
             System.out.println("Step 1: Input the name of the book.");
-            name = sc.nextLine();
+            name = sc.next();
             System.out.println("Step 2: Input the author of the book.");
-            author = sc.nextLine();
+            author = sc.next();
             System.out.println("Step 3: Input the price of the book.");
             price = sc.nextFloat();
-            System.out.println("Step 4: Input the availability of the book.");
+            System.out.println("Step 4: Input the availability of the book. (0/1)");
             available = sc.nextInt();
             System.out.println("Step 5: Input the number of storage of the book.");
             storage = sc.nextInt();
