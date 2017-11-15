@@ -3,6 +3,7 @@ package test;
 import controller.controller;
 import model.Admin;
 import model.Book;
+import model.Customer;
 import model.User;
 
 import javax.naming.ldap.Control;
@@ -20,8 +21,8 @@ public class controllerTest {
         //TestGetList();
         //TestGetInfo();
         //TestGetSpecialList();
-        //TestBuyBook();
-        Controller.runUser();
+        TestBuyBook();
+        //Controller.runUser();
 
 
     }
@@ -85,7 +86,8 @@ public class controllerTest {
         Admin admin = new Admin(200,"test","1234",0);
         int flag;
         System.out.print("(S)1: ");
-        flag = admin.deleteBook(1);
+        int id = admin.getAllBook().get(0).getBookNumber();
+        flag = admin.deleteBook(id);
         System.out.println(flag);
 
         System.out.print("(F)2: ");
@@ -93,7 +95,7 @@ public class controllerTest {
         System.out.println(flag);
 
         System.out.print("(F)3: ");
-        flag = admin.deleteBook(999999);
+        flag = admin.deleteBook(id+100);
         System.out.println(flag);
 
         System.out.print("(F)4: ");
@@ -103,6 +105,11 @@ public class controllerTest {
 
     private static void TestGetInfo(){
         System.out.println("书籍详情查看测试");
+        Admin admin = new Admin(200,"test","1234",0);
+        int flag;
+        System.out.print("(S)1: ");
+        admin.getBook(1);
+        //等待bug修复
     }
 
     private static void TestGetSpecialList(){
@@ -111,5 +118,31 @@ public class controllerTest {
 
     private static void TestBuyBook(){
         System.out.println("购书、库存更新、交易记录增加测试");
+        Customer customer = new Customer(300,"test","1234",0);
+        int flag,id;
+
+        System.out.print("(S)1: ");
+        id = customer.getAllBook().get(0).getBookNumber();
+        flag = customer.purchase(id, 1);
+        System.out.println(flag);
+
+        System.out.print("(F)2: ");
+        id = customer.getAllBook().get(0).getBookNumber();
+        flag = customer.purchase(id, 0);
+        System.out.println(flag);
+
+        System.out.print("(F)3: ");
+        id = customer.getAllBook().get(0).getBookNumber();
+        flag = customer.purchase(id, -1);
+        System.out.println(flag);
+
+        System.out.print("(F)4: ");
+        id = customer.getAllBook().get(0).getBookNumber();
+        flag = customer.purchase(id, 3000000);
+        System.out.println(flag);
+    }
+
+    private static void TestAdminSystem(){
+
     }
 }
