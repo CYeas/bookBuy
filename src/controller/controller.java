@@ -125,7 +125,7 @@ public class controller {
         System.out.println("Admin Log Out.");
     }
 
-    private void puchaseBook() {
+    private void purchaseBook() {
         int id;
         int num;
         listAllBook();
@@ -149,7 +149,7 @@ public class controller {
             System.out.println("2. Log out.");
             opt = sc.nextInt();
             if (opt == 1) {
-                puchaseBook(); break;
+                purchaseBook(); break;
             } else if (opt == 2) {
                 customer.logOut();
                 System.out.println("Customer Log Out.");
