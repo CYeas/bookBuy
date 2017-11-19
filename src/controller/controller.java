@@ -2,12 +2,14 @@ package controller;
 
 //import com.sun.org.apache.xpath.internal.operations.Bool;
 import model.Admin;
+import model.Book;
 import model.Customer;
 import model.User;
 import util.Line;
 import util.Message;
 import util.UserType;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class controller {
@@ -57,11 +59,11 @@ public class controller {
             storage = sc.nextInt();
 
             admin.createBook(name, author, price, available, storage);
-            System.out.println("Message.Success" + Message.Success );
+            System.out.println("Message.Success: " + Message.Success );
             Line.seperateLine();
             System.out.println("Continue creating book? 0 for continue and 1 for quit.");
-            boolean temp = sc.nextBoolean();
-            if (temp) break;
+            int temp = sc.nextInt();
+            if (temp==1) break;
         }
     }
 
@@ -77,8 +79,10 @@ public class controller {
                     ", are you sure? 0 for delete and 1 for quit:");
             opt = sc.nextInt();
             if (opt == 0) {
-               id = admin.getAllBook().get(bookNum).getBookNumber();
-               admin.deleteBook(id);
+//                System.out.println("input book num:");
+//               id = admin.getAllBook().get(bookNum).getBookNumber();
+//               id = sc.nextInt();
+               admin.deleteBook(bookNum);
                System.out.println("Message.Success" + Message.Success);
             }
             Line.seperateLine();
@@ -89,15 +93,11 @@ public class controller {
     }
 
     private void listAllBook() {
+
         System.out.println("The list of all books:");
         Line.seperateLine();
-        for (int i = customer.getAllBook().size(); i >= 0; i--) {
-            System.out.println(customer.getAllBook().get(i).getBookNumber() +
-                    customer.getAllBook().get(i).getName() +
-                    customer.getAllBook().get(i).getAuthor() +
-                    customer.getAllBook().get(i).getPrice() +
-                    customer.getAllBook().get(i).getStorage());
-        }
+        ArrayList<Book> books = user.getAllBook();
+        printBooks(books);
     }
 
     private void runAdmin() {
@@ -119,7 +119,7 @@ public class controller {
             System.out.println("Anymore operation? Input 0 for quit, 1 for continue.");
             opt = sc.nextInt();
             if (opt == 0) break;
-            break;
+            //break;
         }
         admin.logOut();
         System.out.println("Admin Log Out.");
@@ -141,20 +141,32 @@ public class controller {
     }
 
     private void runCustomer() {
+        customer = (Customer)user;
         int opt;
         System.out.println("Welcome to Customer's operation page.");
         while (true) {
             System.out.println("You have two choices bellow.");
             System.out.println("1. Purchase some book.");
-            System.out.println("2. Log out.");
+            System.out.println("2. Search books by name.");
+            System.out.println("3. Log out.");
             opt = sc.nextInt();
             if (opt == 1) {
-                purchaseBook(); break;
-            } else if (opt == 2) {
+                purchaseBook();
+            }
+            else if(opt ==2){
+                System.out.println("Enter name:");
+                String tmpName = sc.next();
+                ArrayList<Book> limitedBooks = customer.getBookbyName(tmpName);
+                printBooks(limitedBooks);
+            }
+            else if (opt == 3) {
                 customer.logOut();
                 System.out.println("Customer Log Out.");
                 break;
             }
+            System.out.println("Anymore operation? Input 0 for quit, 1 for continue.");
+            opt = sc.nextInt();
+            if (opt == 0) break;
         }
     }
 
@@ -163,17 +175,22 @@ public class controller {
      *  this is the only public function.
      */
     public void runUser() {
+    while(true) {
         logIn();
         if (user.getUserType() == UserType.Customer) {
             runCustomer();
-        }
-        else if (user.getUserType() == UserType.Admin) {
+        } else if (user.getUserType() == UserType.Admin) {
             runAdmin();
-        }
-        else {
+        } else {
             System.out.println("Message.Error" + Message.Error);
-            System.out.println("Log in failed, please check your user name and password.");
+            System.out.println("login error,please try again");
         }
+        System.out.println("Logged Out. 0 for Quit and other integers for Login.");
+        int num = sc.nextInt();
+        if(num==0){
+            break;
+        }
+    }
     }
 
     public static void main(String[] a) {
@@ -181,4 +198,26 @@ public class controller {
         c.runUser();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    private void printBooks(ArrayList<Book> books){
+        System.out.println("Id"+"\t"+"Name" + " \t" + "Author"+"\t"+ "Price"+"\t"+ "Storage");
+        for (int i = 0; i < books.size();i++) {
+            System.out.println(books.get(i).getBookNumber() + "\t" +
+                    books.get(i).getName() + "\t" +
+                    books.get(i).getAuthor() + "\t" +
+                    books.get(i).getPrice() + "\t" +
+                    books.get(i).getStorage());
+        }
+    }
 }
