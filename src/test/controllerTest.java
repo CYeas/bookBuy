@@ -11,9 +11,9 @@ import javax.naming.ldap.Control;
 public class controllerTest {
     public static void main(String args[]) {
         //new DatabaseUtil().initDatabase();
-        //new Admin(0 ,"cyea", "1234", 0).signUp();
-        //new Admin(1 ,"cyea2", "1234", 0).signUp();
-        //new Customer(2 ,"customer", "1234", 1).signUp();
+        new Admin(0 ,"cyea", "1234", 0).signUp();
+        new Admin(1 ,"cyea2", "1234", 0).signUp();
+        new Customer(2 ,"customer", "1234", 1).signUp();
         controller Controller = new controller();
         //TestLogin();
         //TestAddBook();
@@ -21,8 +21,8 @@ public class controllerTest {
         //TestGetList();
         //TestGetInfo();
         //TestGetSpecialList();
-        TestBuyBook();
-        //Controller.runUser();
+        //TestBuyBook();
+        Controller.runUser();
 
 
     }
@@ -33,17 +33,17 @@ public class controllerTest {
         User user1 = User.login("cyea", "1234");
         System.out.print("(S)2: ");
         User user2 = User.login("cyea2", "1234");
-        System.out.print("(F)3: ");
+        System.out.println("(F)3: ");
         User user3 = User.login("cyea", "123");
-        System.out.print("(F)4: ");
+        System.out.println("(F)4: ");
         User user4 = User.login("cyea", "12345");
-        System.out.print("(F)5: ");
+        System.out.println("(F)5: ");
         User user5 = User.login("cyea3", "1234");
         System.out.print("(S)6: ");
         User user6 = User.login("customer", "1234");
-        System.out.print("(F)7: ");
+        System.out.println("(F)7: ");
         User user7 = User.login("customer", "12345");
-        System.out.print("(F)8: ");
+        System.out.println("(F)8: ");
         User user8 = User.login("customer1", "1234");
         System.out.println();
     }
@@ -106,10 +106,23 @@ public class controllerTest {
     private static void TestGetInfo(){
         System.out.println("书籍详情查看测试");
         Admin admin = new Admin(200,"test","1234",0);
-        int flag;
+        int flag=0;
+        int id = admin.getAllBook().get(0).getBookNumber();
         System.out.print("(S)1: ");
-        admin.getBook(1);
-        //等待bug修复
+        //flag = admin.getBook(id);
+        System.out.println(flag);
+
+        System.out.print("(F)2: ");
+        //flag = admin.getBook(-1);
+        System.out.println(flag);
+
+        System.out.print("(F)3: ");
+        //flag = admin.getBook(id+100);
+        System.out.println(flag);
+
+        System.out.print("(F)4: ");
+        //flag = admin.getBook(id);
+        System.out.println(flag);
     }
 
     private static void TestGetSpecialList(){
@@ -125,7 +138,6 @@ public class controllerTest {
         id = customer.getAllBook().get(0).getBookNumber();
         flag = customer.purchase(id, 1);
         System.out.println(flag);
-
         System.out.print("(F)2: ");
         id = customer.getAllBook().get(0).getBookNumber();
         flag = customer.purchase(id, 0);

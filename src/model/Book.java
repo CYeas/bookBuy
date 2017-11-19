@@ -15,6 +15,11 @@ public class Book {
     private String author;
     private float price;
     private int storage;
+
+    public int getAvailable() {
+        return available;
+    }
+
     private int available;
 
     public Book(int bookNumber, String name, String author, float price, int storage, int available) {
@@ -42,7 +47,7 @@ public class Book {
     }
 
     protected int deleteBook() {
-        String sql = "DELETE Book WHERE rowid=" + this.bookNumber + ";";
+        String sql = "DELETE FROM Book WHERE rowid=" + this.bookNumber + ";";
         return DatabaseUtil.runUpdateSql(sql);
     }
 
@@ -98,4 +103,6 @@ public class Book {
     public int getStorage() {
         return storage;
     }
+
+
 }

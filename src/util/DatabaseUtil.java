@@ -75,9 +75,9 @@ public class DatabaseUtil {
                             return new Customer(id, dbName, dbPassword, dbUserType);
                     }
                 }
-                else {
+                /*else {
                     System.out.println("Failed");
-                }
+                }*/
             }
         } catch (SQLException e) {
             return null;
@@ -123,7 +123,7 @@ public class DatabaseUtil {
         float  price = rs.getFloat("Price");
         int available = rs.getInt("Available");
         int storage = rs.getInt("Storage");
-        return new Book(id, name, author, price, available, storage);
+        return new Book(id, name, author, price, storage, available);
     }
 
     private static ResultSet runQuerySql(Statement stmt, String sql) throws SQLException {

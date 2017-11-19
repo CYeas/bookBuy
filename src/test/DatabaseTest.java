@@ -12,10 +12,10 @@ import util.UserType;
 public class DatabaseTest {
     public static void main( String args[]) {
         new DatabaseUtil().initDatabase();
-        new Admin(0 ,"Admin_1", "password", 0).signUp();
-        new Admin(0 ,"Admin_2", "password", 0).signUp();
-        new Customer(0 ,"Customer_1", "1234", 1).signUp();
-        new Customer(0 ,"Customer_2", "1234", 1).signUp();
+//        new Admin(0 ,"Admin_1", "password", 0).signUp();
+//        new Admin(0 ,"Admin_2", "password", 0).signUp();
+//        new Customer(0 ,"Customer_1", "1234", 1).signUp();
+//        new Customer(0 ,"Customer_2", "1234", 1).signUp();
 
         //new DatabaseTest().createBook();
         //new DatabaseTest().buyBook();
